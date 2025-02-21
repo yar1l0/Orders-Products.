@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import NavigationMenu from "@/components/NavigationMenu"; 
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import "./globals.sass";
+import Link from "next/link";
+import Image from "next/image";
+import Ava from '@/assets/images/ava.png'
+import Header from "@/components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +35,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Header />
+        <Container fluid>
+          <Row>
+            <Col xs={2} className="p-[0] bg-white">
+            <NavigationMenu /> 
+            </Col>
+            <Col>
+              {children}
+            </Col>
+          </Row>
+        </Container>
       </body>
     </html>
   );

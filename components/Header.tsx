@@ -1,0 +1,56 @@
+'use client';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import socket from "@/socket";
+import "@/styles/Header.sass";
+import Image from "next/image";
+import Logo from '@/assets/images/logo.png'
+const Header: React.FC = () => {
+  const [dateTime, setDateTime] = useState<string | null>(null);
+  const [activeSessions, setActiveSessions] = useState<number>(0);
+
+  useEffect(() => {
+    // Set date and time only on the client
+    setDateTime(new Date().toLocaleString());
+
+    //Update date every second
+    const interval = setInterval(() => {
+      setDateTime(new Date().toLocaleString());
+    }, 1000);
+
+    // Connecting to WebSocket
+    socket.on("active_sessions", (count: number) => {
+      setActiveSessions(count);
+    });
+
+    return () => {
+      clearInterval(interval);
+      socket.off("active_sessions");
+    };
+  }, []);
+
+  return (
+    <header className="header shadow-sm">
+      <div className="header__left ">
+        <Image
+          className="dark:invert"
+          src={Logo}
+          alt="Logo"
+          width={50}
+          height={50}
+        />
+        <h1 className="header__title">Inventory</h1>
+      </div>
+      <div className="form-outline max-w-[500px] w-[100%]" data-mdb-input-init>
+        <input type="search" id="form1" className="form-control header__search" placeholder="Поиск" aria-label="Search" />
+      </div>
+      <div className="header__right">
+        {/* Show date only if useEffect has already run */}
+        {dateTime ? <span className="header__datetime">{dateTime}</span> : null}
+        <span className="header__sessions">🟢 {activeSessions} online</span>
+      </div>
+    </header>
+  );
+};
+
+export default Header;

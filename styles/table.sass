@@ -1,0 +1,33 @@
+.table-body
+  background-color: #fff
+  display: flex
+  width: max-content
+  flex-direction: column
+  &.--border
+    border-radius: 15px
+    border: solid #afaaaa
+    border-width: 1px
+  tr
+    display: flex
+    align-items: center
+    padding: 0 15px
+    overflow: auto
+    gap: 15px
+    td
+      border: none
+.scroll
+  &::-webkit-scrollbar
+    width: 10px
+    height: 10px
+  &::-webkit-scrollbar-track
+    border-radius: 6px
+    background: #fff
+  &::-webkit-scrollbar-thumb
+    background: #dbdadd
+    border-radius: 6px
+  &::-webkit-scrollbar-thumb:hover
+    background: #dbdadd
+.status
+  font-weight: 600
+  &.--green
+    color: green
