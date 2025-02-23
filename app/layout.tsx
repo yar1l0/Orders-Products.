@@ -38,7 +38,7 @@ export default function RootLayout({
         <Header />
         <Container fluid>
           <Row>
-            <Col xs={2} className="p-[0] bg-white">
+            <Col  className="p-[0] bg-white max-w-[250px]">
             <NavigationMenu /> 
             </Col>
             <Col>

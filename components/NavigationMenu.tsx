@@ -18,7 +18,9 @@ const NavigationMenu = () => {
         />
       </div>
       <ul className="list-container">
-        <li className="list-container__item">Orders</li>
+      <Link href='/orders'>
+        <li className={`list-container__item ${pathname === '/orders' ? 'active' : ''}`}>Приход</li>
+        </Link>
         <Link href='/products'>
           <li className={`list-container__item ${pathname === '/products' ? 'active' : ''}`}>Products</li>
         </Link>

@@ -17,7 +17,7 @@ export default function Prosucts() {
       condition: "Б/У",
       priceUSD: "2 500 $",
       priceUAH: "250 000.50 UAH",
-      groupName: "Длинное предлинное название группы", // Если пусто, отобразится "—"
+      groupName: "", // Если пусто, отобразится "—"
       arrivalName: "Длинное предлинное название прихода",
       date: "06/12/2017",
     },
@@ -71,7 +71,7 @@ export default function Prosucts() {
         </section>
         <section className="overflow-x-auto w-full scroll">
           <div className="w-[10px]">
-            <table className="table  w-full">
+            <table className="flex flex-col gap-[30px]  w-full pb-[20px] " >
               {rowDataArray.map((rowData, index) => (
                 <tbody className="table-body --border  w-full " key={index}>
                   <tr >
@@ -103,16 +103,19 @@ export default function Prosucts() {
                       <p className="text-[#afaaaa]">{rowData.priceUSD}</p>
                       {rowData.priceUAH}
                     </td>
-                    <td>
+                    <td className='w-[350px]'>
                       {rowData.groupName ? (
-                        <p className="underline decoration-[#afaaaa] underline-offset-[4px] text-[21px]">
+                        <p className="underline decoration-[#afaaaa] underline-offset-[4px] text-[21px] ">
                           {rowData.groupName}
                         </p>
                       ) : (
                         "—"
                       )}
                     </td>
-                    <td className="underline decoration-[#afaaaa] underline-offset-[4px] text-[21px]">
+                    <td className="underline decoration-[#afaaaa] underline-offset-[4px] text-[21px] w-[350px]">
+                      {rowData.arrivalName}
+                    </td>
+                    <td className="underline decoration-[#afaaaa] underline-offset-[4px] text-[21px] w-[350px]">
                       {rowData.arrivalName}
                     </td>
                     <td>
