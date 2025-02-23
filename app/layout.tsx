@@ -5,10 +5,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import "./globals.sass";
-import Link from "next/link";
-import Image from "next/image";
-import Ava from '@/assets/images/ava.png'
 import Header from "@/components/Header";
+import { ApolloWrapper } from "@/lib/apollo-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,17 +33,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        <Container fluid>
-          <Row className="flex-nowrap">
-            <Col className="p-[0] bg-white max-w-[250px]">
-              <NavigationMenu />
-            </Col>
-            <Col>
-              {children}
-            </Col>
-          </Row>
-        </Container>
+        <ApolloWrapper>
+
+          <Header />
+          <Container fluid>
+            <Row className="flex-nowrap">
+              <Col className="p-[0] bg-white max-w-[250px]">
+                <NavigationMenu />
+              </Col>
+              <Col>
+                {children}
+              </Col>
+            </Row>
+          </Container>
+        </ApolloWrapper>
       </body>
     </html>
   );

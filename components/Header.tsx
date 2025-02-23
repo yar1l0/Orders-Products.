@@ -5,9 +5,19 @@ import socket from "@/socket";
 import "@/styles/Header.sass";
 import Image from "next/image";
 import Logo from '@/assets/images/logo.png'
+import { TEST_QUERY } from "@/graphql/queries/getItems";
+import { useQuery } from "@apollo/client";
+
+
 const Header: React.FC = () => {
   const [dateTime, setDateTime] = useState<string | null>(null);
   const [activeSessions, setActiveSessions] = useState<number>(0);
+  const { loading, error, data } = useQuery(TEST_QUERY);
+
+  useEffect(() => {
+    console.log("Data:", data);
+    if (error) console.error(error);
+  }, [data, loading, error]);
 
   useEffect(() => {
     // Set date and time only on the client
