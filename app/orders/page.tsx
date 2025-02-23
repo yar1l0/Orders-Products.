@@ -80,8 +80,10 @@ export default function Prosucts() {
   const handleShow = () => setShowModal(true);
 
   const handleClose = () => setShowModal(false);
+
+
   return (
-    <div className=" min-h-screen  sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="min-h-screen px-2 py-10 lg:px-20 lg:py-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <section className="flex items-center gap-[10px]">
           <Image
