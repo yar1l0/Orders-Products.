@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import NavigationMenu from "@/components/NavigationMenu"; 
+import NavigationMenu from "@/components/NavigationMenu";
 import { Geist, Geist_Mono } from "next/font/google";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -37,9 +37,9 @@ export default function RootLayout({
       >
         <Header />
         <Container fluid>
-          <Row>
-            <Col  className="p-[0] bg-white max-w-[250px]">
-            <NavigationMenu /> 
+          <Row className="flex-nowrap">
+            <Col className="p-[0] bg-white max-w-[250px]">
+              <NavigationMenu />
             </Col>
             <Col>
               {children}

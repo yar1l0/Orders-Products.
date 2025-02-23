@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Image from "next/image";
 import Form from 'react-bootstrap/Form';
-import Monitor from '@/assets/images/Monitor.png'
+import Monitor from '@/assets/images/monitor.png'
 import Delete from '@/assets/images/delete.svg'
 import Modal from '@/components/Modal'
 export default function Prosucts() {

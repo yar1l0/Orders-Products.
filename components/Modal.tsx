@@ -1,7 +1,7 @@
 'use client';
 import Image from "next/image";
 import { Modal } from 'react-bootstrap';
-import Monitor from '@/assets/images/Monitor.png';
+import Monitor from '@/assets/images/monitor.png';
 import Delete from '@/assets/images/del.png';
 
 interface ModalProps {
