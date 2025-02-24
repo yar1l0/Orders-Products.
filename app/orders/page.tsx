@@ -91,23 +91,24 @@ export default function Prosucts() {
   useEffect(() => {
     // Define the GraphQL query
     const query = `
-      query {
-        getAllOrders {
-          id
-          title
-          description
-          createdAt
-          products {
-            id
-            name
-            price
+     query {
+      getAllOrders(page: 1) {
+        orders {
+          order {
+            title
+            products {
+              name
+            }
           }
+          totalProducts
+          totalPrice
         }
       }
+    }
     `;
 
     const fetchOrders = async () => {
-      const token = Cookies.get("token"); 
+      const token = Cookies.get("token");
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}`, {
           method: "POST",
@@ -123,7 +124,7 @@ export default function Prosucts() {
           throw new Error(data.errors[0].message);
         }
 
-        setOrders(data.data.getAllOrders);
+        setOrders(data.data.getAllOrders.orders);
       } catch (error: any) {
         setError(error.message);
       } finally {
@@ -154,13 +155,13 @@ export default function Prosucts() {
         <section className="relative w-full flex gap-[15px]">
           <div className="overflow-x-auto w-full scroll">
             <table className="flex flex-col gap-[30px]  w-full pb-[20px] " >
-              {rowDataArray.map((rowData, index) => (
+              {orders.map((orderData, index) => (
                 <tbody className="table-body --border  w-full " key={index}>
                   <tr className={`${isOpen ? "--right" : ""}`}>
                     {!isOpen && (
                       <td className="w-[650px]">
                         <p className="underline decoration-[#afaaaa] underline-offset-[4px] text-[21px]">
-                          {rowData.title}
+                        {orderData.order.title}
                         </p>
                       </td>
                     )}
@@ -180,19 +181,18 @@ export default function Prosucts() {
                       </button>
                     </td>
                     <td>
-                      <p className="text-[21px]">
-                        {rowData.quantity}
+                      <p className="text-[21px] font-bold">
+                        {orderData.totalProducts}
                       </p>
                       <p className="text-[#afaaaa]">Продукта</p>
                     </td>
 
                     <td className='w-[250px] text-center' >
                       <p className="text-[#afaaaa]">06/12</p>
-                      {rowData.date}
+                      {orderData.date}
                     </td>
                     <td className='w-[250px] text-center'>
-                      <p className="text-[#afaaaa]">06/12</p>
-                      {rowData.date}
+                      {orderData.totalPrice} UAH
                     </td>
                     <td className={`${isOpen ? "" : ""}`}>
                       {isOpen && (
