@@ -12,9 +12,14 @@
     padding: 10px 30px
     overflow: auto
     gap: 15px
-
+    padding-right: 0px
     td
       border: none
+      padding: 0
+      &:last-child
+        padding-right: 30px
+      img
+        max-width: max-content
 .scroll
   &::-webkit-scrollbar
     width: 10px
@@ -29,5 +34,6 @@
     background: #dbdadd
 .status
   font-weight: 600
+  width: 120px
   &.--green
     color: green

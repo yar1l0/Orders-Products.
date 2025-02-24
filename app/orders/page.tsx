@@ -7,6 +7,10 @@ import Delete from '@/assets/images/delete.svg'
 import Modal from '@/components/Modal'
 import Menu from '@/assets/images/burger-menu.png'
 import Plus from '@/assets/images/plus.png'
+import Right from '@/assets/images/right.png'
+import ProductTable from '@/components/ProductTable'
+
+
 export default function Prosucts() {
   const rowDataArray = [
     {
@@ -140,72 +144,35 @@ export default function Prosucts() {
                       <p className="text-[#afaaaa]">06/12</p>
                       {rowData.date}
                     </td>
-                    <td>
-                      <button onClick={handleShow}>
-                        <Image
-                          className="cursor-pointer"
-                          src={Delete}
-                          alt="Delete"
-                          width={15}
-                          height={15}
-                        />
-                      </button>
+                    <td className={`${isOpen ? "bg-[#afaaaa] pr-[30px]" : ""}`}>
+                      {isOpen ? (
+                        <button onClick={() => setIsOpen(false)}>
+                          <Image
+                            className="cursor-pointer"
+                            src={Right}
+                            alt="Right"
+                            width={15}
+                            height={15}
+                          />
+                        </button>
+                      ) : (
+                        <button onClick={handleShow}>
+                          <Image
+                            className="cursor-pointer"
+                            src={Delete}
+                            alt="Delete"
+                            width={15}
+                            height={15}
+                          />
+                        </button>
+                      )}
                     </td>
                   </tr>
                 </tbody>
               ))}
             </table>
           </div>
-          {isOpen && (
-            <div className='flex flex-col gap-[15px]   bg-white p-[30px]'>
-              <h2 className='text-[21px] font-bold	'>Длинное предлинное длиннючее название прихода</h2>
-              <div className='flex gap-[10px] cursor-pointer'>
-                <Image
-                  src={Plus}
-                  alt="Plus"
-                  width={24}
-                  height={20}
-                />
-                <p className='text-[green]'>Добавить продукт</p>
-              </div>
-              <table className="table w-full">
-                <tbody className="table-body w-full">
-                {DataArray.map((rowData, index) => (
-                  <tr key={index}>
-                    <td>
-                      <div className="w-3 h-3 bg-black rounded-full"></div>
-                    </td>
-                    <td>
-                      <Image
-                        className="dark:invert"
-                        src={Monitor}
-                        alt="Monitor"
-                        width={100}
-                        height={100}
-                      />
-                    </td>
-                    <td>
-                      <p className="underline decoration-[#afaaaa] underline-offset-[3px]">Gigabyte Technology X58-USB3 (Socket 1366) 6 X58-USB3</p>
-                      <p className="text-[#afaaaa]">X58-USB3</p>
-                    </td>
-                    <td className="status">{rowData.status}</td>
-                    <td>
-                      <button onClick={handleShow}>
-                        <Image
-                          className="cursor-pointer"
-                          src={Delete}
-                          alt="Delete"
-                          width={15}
-                          height={15}
-                        />
-                      </button>
-                    </td>
-                  </tr>
-                    ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+          <ProductTable isOpen={isOpen} DataArray={DataArray} handleShow={handleShow} />
         </section>
       </main>
       <Modal show={showModal} onHide={handleClose} />

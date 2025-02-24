@@ -4,6 +4,7 @@ import Link from "next/link";
 import socket from "@/socket";
 import "@/styles/Header.sass";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import Logo from '@/assets/images/logo.png'
 const Header: React.FC = () => {
   const [dateTime, setDateTime] = useState<string | null>(null);
@@ -28,28 +29,37 @@ const Header: React.FC = () => {
       socket.off("active_sessions");
     };
   }, []);
-
+  const pathname = usePathname();
+  const isLoginPage = pathname === "/";
+  const isRegisterPage = pathname === "/register";
   return (
-    <header className="header shadow-sm">
-      <div className="header__left ">
-        <Image
-          className="dark:invert"
-          src={Logo}
-          alt="Logo"
-          width={50}
-          height={50}
-        />
-        <h1 className="header__title">Inventory</h1>
-      </div>
-      <div className="form-outline max-w-[500px] w-[100%]" data-mdb-input-init>
-        <input type="search" id="form1" className="form-control header__search" placeholder="Поиск" aria-label="Search" />
-      </div>
-      <div className="header__right">
-        {/* Show date only if useEffect has already run */}
-        {dateTime ? <span className="header__datetime">{dateTime}</span> : null}
-        <span className="header__sessions">🟢 {activeSessions} online</span>
-      </div>
-    </header>
+    <>
+      {!isLoginPage && !isRegisterPage && (
+        <header className="header shadow-sm">
+          <div>
+            <Link href='/'  className="header__left">
+              <Image
+                className="dark:invert"
+                src={Logo}
+                alt="Logo"
+                width={50}
+                height={50}
+              />
+              <h1 className="header__title">Inventory</h1>
+            </Link>
+          </div>
+          <div className="form-outline max-w-[500px] w-[100%]" data-mdb-input-init>
+            <input type="search" id="form1" className="form-control header__search" placeholder="Поиск" aria-label="Search" />
+          </div>
+          <div className="header__right">
+            {/* Show date only if useEffect has already run */}
+            {dateTime ? <span className="header__datetime">{dateTime}</span> : null}
+            <span className="header__sessions">🟢 {activeSessions} online</span>
+          </div>
+        </header>
+
+      )}
+    </>
   );
 };
 

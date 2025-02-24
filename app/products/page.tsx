@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form';
 import Monitor from '@/assets/images/monitor.png'
 import Delete from '@/assets/images/delete.svg'
 import Modal from '@/components/Modal'
+
+
 export default function Prosucts() {
   const rowDataArray = [
     {
@@ -31,10 +33,11 @@ export default function Prosucts() {
       condition: "Б/У",
       priceUSD: "2 500 $",
       priceUAH: "250 000.50 UAH",
-      groupName: "Длинное предлинное название группы", // Если пусто, отобразится "—"
+      groupName: "", // Если пусто, отобразится "—"
       arrivalName: "Длинное предлинное название прихода",
       date: "06/12/2017",
     },
+    
     // Можно добавить еще объекты, если нужно больше строк
   ];
 
@@ -44,7 +47,7 @@ export default function Prosucts() {
 
   const handleClose = () => setShowModal(false);
   return (
-    <div className=" min-h-screen  sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className=" min-h-screen px-2 py-10 lg:px-20 lg:py-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <section className="flex items-center gap-[30px]">
           <h1 className="font-semibold text-[24px]">
@@ -69,8 +72,8 @@ export default function Prosucts() {
             </Form.Select>
           </div>
         </section>
-        <section className="overflow-x-auto w-full scroll">
-          <div className="w-[10px]">
+        <section className="overflow-x-auto w-full scroll max-w-[80vw]">
+          <div className="overflow-x-auto w-full scroll min-w-[1800px]">
             <table className="flex flex-col gap-[30px]  w-full pb-[20px] " >
               {rowDataArray.map((rowData, index) => (
                 <tbody className="table-body --border  w-full " key={index}>
@@ -87,23 +90,23 @@ export default function Prosucts() {
                         height={100}
                       />
                     </td>
-                    <td>
-                      <p className="underline decoration-[#afaaaa] underline-offset-[3px]">
+                    <td className=''>
+                      <p className="underline decoration-[#afaaaa] underline-offset-[3px] w-max">
                         {rowData.brand}
                       </p>
                       <p className="text-[#afaaaa]">{rowData.model}</p>
                     </td>
                     <td className="status">{rowData.status}</td>
-                    <td className="w-[150px]">
+                    <td className="w-[170px]">
                       <span className="text-[#afaaaa]">с</span> {rowData.warrantyStart} <br />
                       <span className="text-[#afaaaa]">по</span> {rowData.warrantyEnd}
                     </td>
-                    <td>{rowData.condition}</td>
-                    <td>
+                    <td><p className='w-max'>{rowData.condition}</p></td>
+                    <td className='w-[350px]'>
                       <p className="text-[#afaaaa]">{rowData.priceUSD}</p>
                       {rowData.priceUAH}
                     </td>
-                    <td className='w-[350px]'>
+                    <td className='min-w-[250px]'>
                       {rowData.groupName ? (
                         <p className="underline decoration-[#afaaaa] underline-offset-[4px] text-[21px] ">
                           {rowData.groupName}
@@ -112,10 +115,10 @@ export default function Prosucts() {
                         "—"
                       )}
                     </td>
-                    <td className="underline decoration-[#afaaaa] underline-offset-[4px] text-[21px] w-[350px]">
+                    <td className="underline decoration-[#afaaaa] underline-offset-[4px] text-[21px] min-w-[250px]">
                       {rowData.arrivalName}
                     </td>
-                    <td className="underline decoration-[#afaaaa] underline-offset-[4px] text-[21px] w-[350px]">
+                    <td className="underline decoration-[#afaaaa] underline-offset-[4px] text-[21px] min-w-[250px]">
                       {rowData.arrivalName}
                     </td>
                     <td>
