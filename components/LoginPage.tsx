@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie"; // Импортируем библиотеку для работы с куками
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -49,8 +50,8 @@ export default function LoginPage() {
       const { token, user } = result.data.login;
       console.log("User logged in:", user);
 
-      // Сохраняем токен в localStorage или cookie
-      localStorage.setItem("token", token);
+      // Сохраняем токен в куки
+      Cookies.set("token", token, { expires: 7, path: "/" }); // Токен будет храниться 7 дней
 
       // Перенаправляем на страницу заказов или другую страницу после успешного логина
       router.push("/orders");

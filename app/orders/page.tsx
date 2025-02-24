@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from "next/image";
 import Form from 'react-bootstrap/Form';
 import Monitor from '@/assets/images/monitor.png'
@@ -7,8 +7,8 @@ import Delete from '@/assets/images/delete.svg'
 import Modal from '@/components/Modal'
 import Menu from '@/assets/images/burger-menu.png'
 import Plus from '@/assets/images/plus.png'
-import Right from '@/assets/images/right.png'
 import ProductTable from '@/components/ProductTable'
+import Cookies from "js-cookie";
 
 
 export default function Prosucts() {
@@ -84,6 +84,56 @@ export default function Prosucts() {
   const handleShow = () => setShowModal(true);
 
   const handleClose = () => setShowModal(false);
+  const [orders, setOrders] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Define the GraphQL query
+    const query = `
+      query {
+        getAllOrders {
+          id
+          title
+          description
+          createdAt
+          products {
+            id
+            name
+            price
+          }
+        }
+      }
+    `;
+
+    const fetchOrders = async () => {
+      const token = Cookies.get("token"); 
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ query }),
+        });
+
+        const data = await response.json();
+        if (data.errors) {
+          throw new Error(data.errors[0].message);
+        }
+
+        setOrders(data.data.getAllOrders);
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
 
 
   return (
@@ -106,7 +156,7 @@ export default function Prosucts() {
             <table className="flex flex-col gap-[30px]  w-full pb-[20px] " >
               {rowDataArray.map((rowData, index) => (
                 <tbody className="table-body --border  w-full " key={index}>
-                  <tr >
+                  <tr className={`${isOpen ? "--right" : ""}`}>
                     {!isOpen && (
                       <td className="w-[650px]">
                         <p className="underline decoration-[#afaaaa] underline-offset-[4px] text-[21px]">
@@ -144,21 +194,10 @@ export default function Prosucts() {
                       <p className="text-[#afaaaa]">06/12</p>
                       {rowData.date}
                     </td>
-                    <td className={`${isOpen ? "bg-[#afaaaa] pr-[30px]" : ""}`}>
-                      {isOpen ? (
-                        <button onClick={() => setIsOpen(false)}>
+                    <td className={`${isOpen ? "" : ""}`}>
+                      {isOpen && (
+                        <button onClick={handleShow} className="cursor-pointer">
                           <Image
-                            className="cursor-pointer"
-                            src={Right}
-                            alt="Right"
-                            width={15}
-                            height={15}
-                          />
-                        </button>
-                      ) : (
-                        <button onClick={handleShow}>
-                          <Image
-                            className="cursor-pointer"
                             src={Delete}
                             alt="Delete"
                             width={15}

@@ -13,6 +13,20 @@
     overflow: auto
     gap: 15px
     padding-right: 0px
+    position: relative
+    justify-content: space-between
+    &.--right::after
+      content: "" // You need content for the pseudo-element.
+      background-image: url("data:image/svg+xml,%0A%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cpath d='M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z'/%3E%3C/svg%3E")
+      background-color: grey
+      position: absolute
+      right: 0 // Adjust the position as needed.
+      top: 50% // Center the pseudo-element vertically.
+      transform: translateY(-50%)
+      width: 50px // Set a width for the image.
+      height: 100% // Set a height for the image.
+      background-repeat: no-repeat // Prevent repeating the background image.
+      background-position: center
     td
       border: none
       padding: 0

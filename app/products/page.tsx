@@ -72,7 +72,7 @@ export default function Prosucts() {
             </Form.Select>
           </div>
         </section>
-        <section className="overflow-x-auto w-full scroll max-w-[80vw]">
+        <section className="overflow-x-auto w-full scroll max-w-[85vw]">
           <div className="overflow-x-auto w-full scroll min-w-[1800px]">
             <table className="flex flex-col gap-[30px]  w-full pb-[20px] " >
               {rowDataArray.map((rowData, index) => (
@@ -102,7 +102,7 @@ export default function Prosucts() {
                       <span className="text-[#afaaaa]">по</span> {rowData.warrantyEnd}
                     </td>
                     <td><p className='w-max'>{rowData.condition}</p></td>
-                    <td className='w-[350px]'>
+                    <td className='w-[350]'>
                       <p className="text-[#afaaaa]">{rowData.priceUSD}</p>
                       {rowData.priceUAH}
                     </td>
