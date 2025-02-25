@@ -96,8 +96,11 @@ export default function Prosucts() {
         orders {
           order {
             title
+            createdAt
             products {
               name
+              model
+              status
             }
           }
           totalProducts
@@ -135,8 +138,6 @@ export default function Prosucts() {
     fetchOrders();
   }, []);
 
-
-
   return (
     <div className="min-h-screen px-2 py-10 lg:px-20 lg:py-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
@@ -161,7 +162,7 @@ export default function Prosucts() {
                     {!isOpen && (
                       <td className="w-[650px]">
                         <p className="underline decoration-[#afaaaa] underline-offset-[4px] text-[21px]">
-                        {orderData.order.title}
+                          {orderData.order.title}
                         </p>
                       </td>
                     )}
@@ -188,8 +189,9 @@ export default function Prosucts() {
                     </td>
 
                     <td className='w-[250px] text-center' >
-                      <p className="text-[#afaaaa]">06/12</p>
-                      {orderData.date}
+                      <p className="text-[#afaaaa]"> {`${String(new Date(orderData.order.createdAt).getDate()).padStart(2, '0')}/${String(new Date(orderData.order.createdAt).getMonth() + 1).padStart(2, '0')}`}</p>
+                      {`${String(new Date(orderData.order.createdAt).getDate()).padStart(2, '0')}/${new Date(orderData.order.createdAt).toLocaleString('ru-RU', { month: 'short' })
+                        }/${new Date(orderData.order.createdAt).getFullYear()}`}
                     </td>
                     <td className='w-[250px] text-center'>
                       {orderData.totalPrice} UAH
@@ -211,7 +213,14 @@ export default function Prosucts() {
               ))}
             </table>
           </div>
-          <ProductTable isOpen={isOpen} DataArray={DataArray} handleShow={handleShow} />
+          <ProductTable
+            isOpen={isOpen}
+            DataArray={DataArray}
+            handleShow={handleShow}
+            // name={orderData.order.products.name}
+            // model={orderData.order.products.model}
+            // status={orderData.order.products.status}
+          />
         </section>
       </main>
       <Modal show={showModal} onHide={handleClose} />

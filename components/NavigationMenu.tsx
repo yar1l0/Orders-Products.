@@ -15,6 +15,8 @@ const NavigationMenu = () => {
   const [error, setError] = useState<string>("");
   const router = useRouter(); // Хук для редиректа
   const pathname = usePathname();
+  console.log("Current pathname:", pathname); 
+  if (!pathname) return null;
   const isLoginPage = pathname === "/"; // Проверяем, если это главная страница
   const isRegisterPage = pathname === "/register";
   const handleLogout = () => {

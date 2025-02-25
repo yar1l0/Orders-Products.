@@ -38,9 +38,7 @@ export default function RootLayout({
           <Header />
           <Container fluid>
             <Row className="flex-nowrap">
-              <Col className="p-[0] bg-white max-w-[250px]">
                 <NavigationMenu />
-              </Col>
               <Col>
                 {children}
               </Col>

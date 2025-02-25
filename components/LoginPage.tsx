@@ -12,6 +12,11 @@ export default function LoginPage() {
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
+    if (password.length < 8) {
+      setError("Пароль должен содержать хотя бы 8 символов");
+    } else {
+      setError(""); // Если длина пароля правильная, очищаем ошибку
+    }
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -85,6 +90,7 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
+            minLength={8}
           />
           <button
             type="submit"
