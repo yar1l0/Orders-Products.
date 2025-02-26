@@ -60,9 +60,14 @@ export default function LoginPage() {
 
       // Перенаправляем на страницу заказов или другую страницу после успешного логина
       router.push("/orders");
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Произошла неизвестная ошибка");
+      }
+    }
+     finally {
       setLoading(false);
     }
   };

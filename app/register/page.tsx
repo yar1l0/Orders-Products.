@@ -69,9 +69,14 @@ export default function RegisterPage() {
 
       // Перенаправление на страницу заказов
       router.replace("/orders");
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Произошла неизвестная ошибка");
+      }
+    }
+     finally {
       setLoading(false);
     }
   };

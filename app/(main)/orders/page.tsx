@@ -50,7 +50,16 @@ export default function Prosucts() {
   const handleShow = () => setShowModal(true);
 
   const handleClose = () => setShowModal(false);
-  const [orders, setOrders] = useState<any[]>([]);
+  const [orders, setOrders] = useState<{ 
+    order: { 
+      title: string; 
+      createdAt: string; 
+      products: { name: string; model: string; status: string }[] 
+    };
+    totalProducts: number;
+    totalPrice: number;
+  }[]>([]);
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -94,16 +103,23 @@ export default function Prosucts() {
         }
 
         setOrders(data.data.getAllOrders.orders);
-      } catch (error: any) {
-        setError(error.message);
-      } finally {
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("Произошла неизвестная ошибка");
+        }
+      }
+       finally {
         setLoading(false);
       }
     };
 
     fetchOrders();
   }, []);
-
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+  
   return (
     <div className="min-h-screen px-2 py-10 lg:px-20 lg:py-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
